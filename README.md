@@ -126,6 +126,8 @@ docker-compose stop
 ```
 
 ## frequently used docker CMDs
+
+```
 ## List Docker CLI commands
 docker
 docker container --help
@@ -142,11 +144,12 @@ docker run hello-world
 docker image ls
 
 ## List Docker containers (running, all, all in quiet mode)
-```
 docker container ls
 docker container ls --all
 docker container ls -aq
 
+## loggin a running docker
+docker exec -it <image id> bash
 
 docker build -t friendlyhello .  # Create image using this directory's Dockerfile
 docker run -p 4000:80 friendlyhello  # Run "friendlyname" mapping port 4000 to 80
@@ -164,5 +167,5 @@ docker login             # Log in this CLI session using your Docker credentials
 docker tag <image> username/repository:tag  # Tag <image> for upload to registry
 docker push username/repository:tag            # Upload tagged image to registry
 docker run username/repository:tag                   # Run image from a registry
-docker exec -it <image id> bash                        # loggin a running docker
+
 ```
