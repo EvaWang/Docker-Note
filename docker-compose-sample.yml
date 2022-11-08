@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  message-api:
+    container_name: message-api #image別名
+    restart: always #失敗時是否重啟
+    volumes:
+      - ./api:/message-api #相對路徑
+    build: ./api #source相對路徑
+    ports:
+      - “3001:3001" # {內部port}:{揭露的port}
+
+  reverse-proxy:
+    container_name: reverse-proxy
+    image: nginx:latest # 現成的image來源
+    volumes:
+      - ./message-nginx/default.conf:
+		/etc/nginx/conf.d/default.conf:ro 
+	# volumes為儲存位置，這裡指定了一個需要被覆蓋的檔案default.conf     # {來源相對路徑}:{目的地相對路徑}
+    ports:
+    - "80:80"
+    environment:# 額外的環境參數
+    - NGINX_HOST=xxxxx.southeastasia.cloudapp.azure.com
+    - NGINX_PORT=80
+    depends_on:
+      - message-api #與另一個Container mongo相依 可透過揭露的port呼叫
